@@ -1,0 +1,16 @@
+<div>
+
+  <form (ngSubmit)="joinGame()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" [(ngModel)]="playerName" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="gameId">  GameId, leave empty to create a new game.</label>
+      <input type="text" name="gameId" [(ngModel)]="sessionId" class="form-control" />
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-success form-control" value="Start"/>
+    </div>
+  </form>
+</div>

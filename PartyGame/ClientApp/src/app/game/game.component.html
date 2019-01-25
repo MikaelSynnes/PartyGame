@@ -1,0 +1,28 @@
+<div *ngIf="!gameStarted">
+
+  <button (click)="getAllAssumptions()" class="form-control">{{currentAction}} </button>
+</div>
+<div *ngIf="gameStarted">
+
+  <div class="row form-group">
+
+    Which Player is this?
+  </div>
+  <div class="form-group">
+    {{currentAssumption}}
+  </div>
+  <div class="row form-group">
+    <div class="col">
+      <button (click)="goNextAssumption()" class="form-control"> Next</button>
+    </div>
+    <div class="col">
+      <button (click)="getAllAssumptions()" class="form-control">{{currentAction}} </button>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
