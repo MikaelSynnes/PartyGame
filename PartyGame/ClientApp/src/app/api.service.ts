@@ -16,19 +16,23 @@ export class ApiService {
 
 
   createGame(playerName: string) {
-    console.log("attempting to create game with player", playerName);
-    this.playerName = playerName;
-    const url = this.baseUrl + "creategame";
-    console.log(url);
-    var model = new PlayerModel();
-    model.playerName = playerName;
-    return this.http.post(url, model).toPromise();
+    if (this.gameId != null) {
+
+      console.log("attempting to create game with player", playerName);
+      this.playerName = playerName;
+      const url = this.baseUrl + "creategame";
+      console.log(url);
+      var model = new PlayerModel();
+      model.playerName = playerName;
+      return this.http.post(url, model).toPromise();
+    } else {
+      this.router.navigateByUrl("/");
+    }
   }
   addPlayer(gameId: string, playerName: string) {
     console.log("attempting to join game with player", playerName);
     this.playerName = playerName;
     const url = this.baseUrl + "addplayer/" + gameId;
-    console.log(url);
     var model = new PlayerModel();
     model.playerName = playerName;
     return this.http.post(url, model).toPromise();
@@ -40,8 +44,17 @@ export class ApiService {
     } else {
       this.router.navigateByUrl("/");
     }
-
   }
+
+  finishGame() {
+    if (this.gameId) {
+      const url = this.baseUrl + "session/" + this.gameId;
+      return this.http.get(url).toPromise();
+    } else {
+      this.router.navigateByUrl("/");
+    }
+  }
+
   makeAssumption(assumption: AssumptionModel) {
     if (this.gameId != null) {
       const url = this.baseUrl + "sendassumption/" + this.gameId;
@@ -51,7 +64,7 @@ export class ApiService {
     }
   }
   startGame() {
-    if (this.gameId != null) {
+    if (this.gameId) {
       const url = this.baseUrl + "session/" + this.gameId;
       return this.http.get(url).toPromise();
     } else {

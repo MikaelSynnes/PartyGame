@@ -11,6 +11,7 @@ import { AftergameComponent } from './aftergame/aftergame.component';
 import { CreateGameComponent } from './creategame/creategame.component';
 import { SendAssumptionComponent } from './sendassumption/sendassumption.component';
 import { ApiService } from './api.service';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ApiService } from './api.service';
     GameComponent,
     AftergameComponent,
     CreateGameComponent,
-    SendAssumptionComponent
+    SendAssumptionComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,6 +32,7 @@ import { ApiService } from './api.service';
       { path: 'ready', component: CreateGameComponent},
       { path: 'makeassumptions', component: SendAssumptionComponent },
       { path: 'game', component: GameComponent },
+      { path: 'aftergame', component: AftergameComponent }
     ])
   ],
   providers: [ApiService],

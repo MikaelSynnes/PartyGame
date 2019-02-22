@@ -1,3 +1,20 @@
-<p>
-  aftergame works!
-</p>
+<div *ngIf="game">
+  <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th>Described Player</th>
+        <th>Description</th>
+        <th>Player</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let assumption of game.assumptions">
+        <td>{{assumption.targetPlayerName}}</td>
+        <td>{{assumption.assumption}}</td>
+        <td>{{assumption.player}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="newGame()"> New Game!</button>
+</div>

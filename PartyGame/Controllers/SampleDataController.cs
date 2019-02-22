@@ -20,11 +20,15 @@ namespace PartyGame.Controllers
         }
 
         [HttpPost("creategame")]
-        public ActionResult SetupGame([FromBody]PlayerModel player)
+        public ActionResult SetupGame([FromBody]PlayerModel player, string session = "")
         {
-            string sessionId = Guid.NewGuid().ToString();
+            string sessionId;
+            if (session!=string.Empty)
+                sessionId=session;
+            else
+                sessionId = Guid.NewGuid().ToString();
             GameSession newSession = new GameSession(sessionId);
-            newSession.Players.Add(new PlayerModel(sessionId, player.PlayerName));
+            newSession.Players.Add(new PlayerModel(player.PlayerName));
             _cache.Set(sessionId, newSession, options);
             return Ok(newSession);
         }
@@ -33,13 +37,19 @@ namespace PartyGame.Controllers
         public ActionResult GetSession([FromRoute]string session)
         {
             GameSession currentSession = getSession(session);
+
             return Ok(currentSession);
         }
-    
+
         [HttpPost("addplayer/{session}")]
         public ActionResult AddPlayer([FromRoute]string session, [FromBody]PlayerModel player)
         {
             GameSession currentSession = getSession(session);
+            if (currentSession==null)
+            { 
+                SetupGame(player, session);
+                currentSession=getSession(session);
+            }
             currentSession.Players.Add(player);
             _cache.Set(session, currentSession, options);
             return Ok(currentSession);
@@ -79,7 +89,7 @@ namespace PartyGame.Controllers
         private GameSession getSession(string session)
         {
             GameSession currentSession = null;
-           _cache.TryGetValue(session, out currentSession);
+            _cache.TryGetValue(session, out currentSession);
             return currentSession;
         }
     }

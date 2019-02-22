@@ -10,7 +10,7 @@ import { PlayerModel, AssumptionModel } from '../models/models';
 })
 export class SendAssumptionComponent implements OnInit {
   public targetPlayer: string = "";
-  input:string;
+  input: string;
   constructor(private readonly apiService: ApiService,
     private router: Router) { }
 
@@ -22,7 +22,11 @@ export class SendAssumptionComponent implements OnInit {
   }
 
   send() {
-    this.apiService.makeAssumption(new AssumptionModel(this.apiService.playerName, this.input, this.targetPlayer));
+    var assumption = new AssumptionModel();
+    assumption.player = this.apiService.playerName,
+      assumption.assumption = this.input,
+      assumption.targetPlayerName = this.targetPlayer
+    this.apiService.makeAssumption(assumption);
     this.router.navigateByUrl("/game")
   }
 }
