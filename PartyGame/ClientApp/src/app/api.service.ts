@@ -8,20 +8,16 @@ import { Observable } from 'rxjs/Observable';
 export class ApiService {
   public gameId: string;
   public playerName: string;
-  public baseUrl: string = "https://localhost:5001/";
+  public baseUrl: string = "http://partygame.azurewebsites.net/";
+  //public baseUrl: string = "https://localhost:5001/";
 
   constructor(private readonly http: HttpClient,
     private router: Router) { }
 
-
-
   createGame(playerName: string) {
     if (this.gameId != null) {
-
-      console.log("attempting to create game with player", playerName);
       this.playerName = playerName;
       const url = this.baseUrl + "creategame";
-      console.log(url);
       var model = new PlayerModel();
       model.playerName = playerName;
       return this.http.post(url, model).toPromise();
@@ -29,6 +25,7 @@ export class ApiService {
       this.router.navigateByUrl("/");
     }
   }
+
   addPlayer(gameId: string, playerName: string) {
     console.log("attempting to join game with player", playerName);
     this.playerName = playerName;
@@ -37,6 +34,7 @@ export class ApiService {
     model.playerName = playerName;
     return this.http.post(url, model).toPromise();
   }
+
   getRandomPlayer() {
     if (this.gameId != null) {
       const url = this.baseUrl + "getrandomplayer/" + this.gameId;
@@ -63,6 +61,7 @@ export class ApiService {
       this.router.navigateByUrl("/");
     }
   }
+
   startGame() {
     if (this.gameId) {
       const url = this.baseUrl + "session/" + this.gameId;
@@ -71,5 +70,4 @@ export class ApiService {
       this.router.navigateByUrl("/");
     }
   }
-
 }

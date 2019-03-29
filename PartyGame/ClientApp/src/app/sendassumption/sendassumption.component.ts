@@ -15,18 +15,28 @@ export class SendAssumptionComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.getRandomplayer();
+  }
+
+  getRandomplayer() {
     this.apiService.getRandomPlayer().then((value) => {
       let player = value as PlayerModel;
       this.targetPlayer = player.playerName;
+      this.input = "";
     })
   }
 
   send() {
     var assumption = new AssumptionModel();
-    assumption.player = this.apiService.playerName,
-      assumption.assumption = this.input,
-      assumption.targetPlayerName = this.targetPlayer
+    assumption.player = this.apiService.playerName;
+    assumption.assumption = this.input;
+    assumption.targetPlayerName = this.targetPlayer;
+
     this.apiService.makeAssumption(assumption);
+    this.getRandomplayer();
+  }
+
+  goToGame() {
     this.router.navigateByUrl("/game")
   }
 }

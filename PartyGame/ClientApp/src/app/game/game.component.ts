@@ -24,7 +24,6 @@ export class GameComponent implements OnInit {
 
   setCurrentAssumption(i: number) {
     this.isLast = ((i + 1) >= (this.currentSession.assumptions.length));
-    console.log(this.isLast);
     if (i > this.currentSession.assumptions.length - 1) {
       this.assumptionSource.next(this.currentSession.assumptions[this.currentIndex].assumption);
       return;
@@ -36,9 +35,11 @@ export class GameComponent implements OnInit {
     this.currentIndex = i;
     this.assumptionSource.next(this.currentSession.assumptions[i].assumption);
   }
+
   finishGame() {
     this.router.navigateByUrl("/aftergame");
   }
+
   getAllAssumptions() {
     this.apiService.startGame().then((value: GameSession) => {
       this.currentSession = value;

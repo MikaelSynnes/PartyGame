@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./aftergame.component.css']
 })
 export class AftergameComponent implements OnInit {
-  private game: GameSession;
+  public game: GameSession;
   constructor(private readonly apiService: ApiService,
     private router: Router) {
   }

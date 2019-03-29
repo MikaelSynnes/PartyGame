@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CreateGameComponent implements OnInit {
 
-  constructor(private readonly apiService: ApiService,
+  constructor(public readonly apiService: ApiService,
     private router: Router  ) { }
   startGame() {
     this.router.navigateByUrl("/makeassumptions");

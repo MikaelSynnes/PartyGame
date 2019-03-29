@@ -10,11 +10,11 @@ using PartyGame.models;
 namespace PartyGame.Controllers
 {
     [Route("")]
-    public class ApiController : Controller
+    public class GameController : Controller
     {
         private IMemoryCache _cache;
         MemoryCacheEntryOptions options = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30));
-        public ApiController(IMemoryCache memoryCache)
+        public GameController(IMemoryCache memoryCache)
         {
             _cache=memoryCache;
         }

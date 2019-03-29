@@ -12,14 +12,16 @@ export class CreatePlayerComponent implements OnInit {
   playerName: string;
   sessionId: string;
 
-
-
-  constructor(private readonly apiService: ApiService,
+  constructor(public readonly apiService: ApiService,
     private router: Router) { }
 
   joinGame() {
-    console.log("join", this.playerName, this.sessionId);
-    if (this.sessionId) {
+
+    if (this.playerName === "GM") {
+      this.apiService.gameId = this.sessionId;
+      this.router.navigateByUrl("/game");
+    }
+    else if (this.sessionId) {
       // Handle Errors! or setup new session with id
       this.apiService.addPlayer(this.sessionId, this.playerName).then((value: GameSession) => {
         if (value.sessionId)
